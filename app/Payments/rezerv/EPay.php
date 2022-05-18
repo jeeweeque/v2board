@@ -31,31 +31,22 @@ class EPay {
 
     public function pay($order)
     {
-         
-          $sig = [
-
-            'm' => $this->config['pid'],
-            'oa' => $order['total_amount'] / 100,
-            'currency' => 'RUB', 
-            'o' => $order['trade_no']
-         ];
-
         $params = [
-            'oa' => $order['total_amount'] / 100,
-            'currency' => 'RUB', 
-            'm' => $this->config['pid'],
-            'o' => $order['trade_no']
+            'money' => $order['total_amount'] / 100,
+            'name' => $order['trade_no'],
+            'notify_url' => $order['notify_url'],
+            'return_url' => $order['return_url'],
+            'out_trade_no' => $order['trade_no'],
+            'pid' => $this->config['pid']
         ];
-
-        $signr = "16081:".$sig['oa'].":9U7&7D6ksKVmc>N:RUB:".$sig['o'];
         ksort($params);
         reset($params);
-        $str = stripslashes(urldecode(http_build_query($sig)));
-        $sig['s'] = md5($signr);
+        $str = stripslashes(urldecode(http_build_query($params))) . $this->config['key'];
+        $params['sign'] = md5($str);
         $params['sign_type'] = 'MD5';
         return [
             'type' => 1, // 0:qrcode 1:url
-            'data' => $this->config['url']  ."?". http_build_query($sig)
+            'data' => $this->config['url'] . '/submit.php?' . http_build_query($params)
         ];
     }
 

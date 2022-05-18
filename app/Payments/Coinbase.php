@@ -31,12 +31,12 @@ class Coinbase {
     public function pay($order) {
 
         $params = [
-            'name' => '订阅套餐',
-            'description' => '订单号 ' . $order['trade_no'],
+            'name' => 'Подписка',
+            'description' => 'Номер заказа: ' . $order['trade_no'],
             'pricing_type' => 'fixed_price',
             'local_price' => [
                 'amount' => sprintf('%.2f', $order['total_amount'] / 100),
-                'currency' => 'CNY'
+                'currency' => 'RUB'
             ],
             'metadata' => [
                 "outTradeNo" => $order['trade_no'],
