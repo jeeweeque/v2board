@@ -88,7 +88,7 @@ class V2rayNG
             'peer' => $server['server_name'],
             'sni' => $server['server_name']
         ]);
-        $uri = "trojan://{$password}@{$server['host']}:{$server['port']}?{$query}#{$name}";
+        $uri = "trojan://{$password}@{$server['host']}:{$server['port']}?flow=xtls-rprx-splice&security=xtls&alpn=http%2F1.1&{$query}#{$name}";
         $uri .= "\r\n";
         return $uri;
     }

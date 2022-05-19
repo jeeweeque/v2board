@@ -106,7 +106,7 @@ class Shadowrocket
             'allowInsecure' => $server['allow_insecure'],
             'peer' => $server['server_name']
         ]);
-        $uri = "trojan://{$password}@{$server['host']}:{$server['port']}?{$query}&tfo=1#{$name}";
+        $uri = "trojan://{$password}@{$server['host']}:{$server['port']}?flow=xtls-rprx-splice&security=xtls&alpn=http%2F1.1&{$query}#{$name}";
         $uri .= "\r\n";
         return $uri;
     }
